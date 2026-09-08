@@ -22,7 +22,9 @@ jobs:
         run: |
           set -euo pipefail
           cat .bossagent-src/part*.b64 | base64 --decode > /tmp/bossagent-src.tgz
-          tar -xzf /tmp/bossagent-src.tgz
+          rm -rf bossagent
+          mkdir -p bossagent
+          tar -xzf /tmp/bossagent-src.tgz -C bossagent
           test -f bossagent/app/src/main/AndroidManifest.xml
           test -f bossagent/app/src/main/java/com/openai/bossagent/MainActivity.kt
           echo "Source files: $(find bossagent -type f | wc -l)"
